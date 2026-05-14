@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: renewflow-frontend
+  labels:
+    app: renewflow-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: renewflow-frontend
+  template:
+    metadata:
+      labels:
+        app: renewflow-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: sruthika08/renewflow-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NEXT_PUBLIC_API_URL
+          value: "http://backend-service:5000/api"

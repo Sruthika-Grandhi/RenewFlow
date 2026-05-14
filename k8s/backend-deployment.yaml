@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: renewflow-backend
+  labels:
+    app: renewflow-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: renewflow-backend
+  template:
+    metadata:
+      labels:
+        app: renewflow-backend
+    spec:
+      containers:
+      - name: backend
+        image: sruthika08/renewflow-backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: renewflow-secrets
+              key: DATABASE_URL
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: renewflow-secrets
+              key: JWT_SECRET
