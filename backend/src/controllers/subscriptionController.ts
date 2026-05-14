@@ -36,7 +36,7 @@ export const addSubscription = async (req: AuthRequest, res: Response) => {
 
 export const deleteSubscription = async (req: AuthRequest, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
 
     const subscription = await prisma.subscription.findUnique({ where: { id } });
     if (!subscription || subscription.userId !== req.userId) {
