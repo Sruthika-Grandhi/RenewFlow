@@ -9,8 +9,13 @@ RUN npm install
 
 COPY . .
 
+# ✅ IMPORTANT: pass DATABASE_URL to build stage
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+
 RUN npx prisma generate
 RUN npm run build
+
 
 FROM node:20-alpine
 
